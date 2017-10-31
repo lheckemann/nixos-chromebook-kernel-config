@@ -1,0 +1,575 @@
+# Compress kernel modules for a sizable disk space savings.
+MODULE_COMPRESS y
+MODULE_COMPRESS_XZ y
+
+
+KERNEL_XZ y
+
+# Debugging.
+DEBUG_KERNEL y
+DYNAMIC_DEBUG y
+BACKTRACE_SELF_TEST n
+DEBUG_DEVRES n
+DEBUG_STACK_USAGE n
+DEBUG_STACKOVERFLOW n
+SCHEDSTATS n
+DETECT_HUNG_TASK y
+DEBUG_INFO n # Not until we implement a separate debug output
+
+
+
+
+
+# Bump the maximum number of CPUs to support systems like EC2 x1.*
+# instances and Xeon Phi.
+
+
+# Unix domain sockets.
+UNIX y
+
+# Power management.
+
+PM_ADVANCED_DEBUG y
+X86_INTEL_LPSS y
+
+X86_INTEL_PSTATE y
+
+INTEL_IDLE y
+CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
+
+PM_WAKELOCKS y
+
+# Support drivers that need external firmware.
+STANDALONE n
+
+# Make /proc/config.gz available.
+IKCONFIG y
+IKCONFIG_PROC y
+
+# Optimize with -O2, not -Os.
+CC_OPTIMIZE_FOR_SIZE n
+
+# Enable the kernel's built-in memory tester.
+MEMTEST y
+
+# Include the CFQ I/O scheduler in the kernel, rather than as a
+# module, so that the initrd gets a good I/O scheduler.
+IOSCHED_CFQ y
+BLK_CGROUP y # required by CFQ
+IOSCHED_DEADLINE y
+MQ_IOSCHED_DEADLINE y
+
+BFQ_GROUP_IOSCHED y
+MQ_IOSCHED_KYBER y
+IOSCHED_BFQ m
+
+
+# Enable NUMA.
+NUMA? y
+
+# Disable some expensive (?) features.
+PM_TRACE_RTC n
+
+# Enable initrd support.
+BLK_DEV_RAM y
+BLK_DEV_INITRD y
+
+# Enable various subsystems.
+ACCESSIBILITY y # Accessibility support
+AUXDISPLAY y # Auxiliary Display support
+DONGLE y # Serial dongle support
+HIPPI y
+MTD_COMPLEX_MAPPINGS y # needed for many devices
+SCSI_LOWLEVEL y # enable lots of SCSI devices
+SCSI_LOWLEVEL_PCMCIA y
+SCSI_SAS_ATA y  # added to enable detection of hard drive
+SPI y # needed for many devices
+SPI_MASTER y
+WAN y
+
+# Networking options.
+NET y
+IP_PNP n
+
+NETFILTER y
+NETFILTER_ADVANCED y
+IP_ROUTE_VERBOSE y
+IP_MROUTE_MULTIPLE_TABLES y
+IP_VS_PROTO_TCP y
+IP_VS_PROTO_UDP y
+IP_VS_PROTO_ESP y
+IP_VS_PROTO_AH y
+IP_DCCP_CCID3 n # experimental
+IP_MULTICAST y
+IPV6_ROUTER_PREF y
+IPV6_ROUTE_INFO y
+IPV6_OPTIMISTIC_DAD y
+IPV6_MULTIPLE_TABLES y
+IPV6_SUBTREES y
+IPV6_MROUTE y
+IPV6_MROUTE_MULTIPLE_TABLES y
+IPV6_PIMSM_V2 y
+IPV6_FOU_TUNNEL m
+
+CLS_U32_PERF y
+CLS_U32_MARK y
+
+NET_CLS_BPF m
+NET_ACT_BPF m
+
+L2TP_V3 y
+L2TP_IP m
+L2TP_ETH m
+BRIDGE_VLAN_FILTERING y
+BONDING m
+NET_L3_MASTER_DEV? y
+NET_FOU_IP_TUNNELS? y
+IP_NF_TARGET_REDIRECT m
+
+# Wireless networking.
+CFG80211_WEXT? y # Without it, ipw2200 drivers don't build
+IPW2100_MONITOR? y # support promiscuous mode
+IPW2200_MONITOR? y # support promiscuous mode
+HOSTAP_FIRMWARE? y # Support downloading firmware images with Host AP driver
+HOSTAP_FIRMWARE_NVRAM? y
+ATH9K_PCI? y # Detect Atheros AR9xxx cards on PCI(e) bus
+ATH9K_AHB? y # Ditto, AHB bus
+B43_PHY_HT? y
+BCMA_HOST_PCI? y
+
+# Enable various FB devices.
+FB y
+FB_EFI y
+FB_NVIDIA_I2C y # Enable DDC Support
+FB_RIVA_I2C y
+FB_ATY_CT y # Mach64 CT/VT/GT/LT (incl. 3D RAGE) support
+FB_ATY_GX y # Mach64 GX support
+FB_SAVAGE_I2C y
+FB_SAVAGE_ACCEL y
+FB_SIS_300 y
+FB_SIS_315 y
+FB_3DFX_ACCEL y
+FB_VESA y
+FRAMEBUFFER_CONSOLE y
+FRAMEBUFFER_CONSOLE_ROTATION y
+
+
+# Video configuration.
+# Enable KMS for devices whose X.org driver supports it.
+
+# Allow specifying custom EDID on the kernel command line
+DRM_LOAD_EDID_FIRMWARE y
+VGA_SWITCHEROO y # Hybrid graphics support
+DRM_GMA600 y
+DRM_GMA3600 y
+
+DRM_AMDGPU_SI y # (experimental) amdgpu support for verde and newer chipsets
+DRM_AMDGPU_CIK y # (stable) amdgpu support for bonaire and newer chipsets
+
+
+# Sound.
+SND_DYNAMIC_MINORS y
+SND_AC97_POWER_SAVE y # AC97 Power-Saving Mode
+SND_HDA_INPUT_BEEP y # Support digital beep via input layer
+SND_HDA_RECONFIG y # Support reconfiguration of jack functions
+SND_HDA_PATCH_LOADER y # Support configuring jack functions via fw mechanism at boot
+SND_USB_CAIAQ_INPUT y
+
+
+# USB serial devices.
+USB_SERIAL_GENERIC y # USB Generic Serial Driver
+USB_SERIAL_KEYSPAN_MPR y # include firmware for various USB serial devices
+USB_SERIAL_KEYSPAN_USA28 y
+USB_SERIAL_KEYSPAN_USA28X y
+USB_SERIAL_KEYSPAN_USA28XA y
+USB_SERIAL_KEYSPAN_USA28XB y
+USB_SERIAL_KEYSPAN_USA19 y
+USB_SERIAL_KEYSPAN_USA18X y
+USB_SERIAL_KEYSPAN_USA19W y
+USB_SERIAL_KEYSPAN_USA19QW y
+USB_SERIAL_KEYSPAN_USA19QI y
+USB_SERIAL_KEYSPAN_USA49W y
+USB_SERIAL_KEYSPAN_USA49WLC y
+
+# Device mapper (RAID, LVM, etc.)
+MD y
+
+# Filesystem options - in particular, enable extended attributes and
+# ACLs for all filesystems that support them.
+FANOTIFY y
+TMPFS y
+TMPFS_POSIX_ACL y
+FS_ENCRYPTION? m
+
+EXT2_FS_XATTR y
+EXT2_FS_POSIX_ACL y
+EXT2_FS_SECURITY y
+
+EXT3_FS_POSIX_ACL y
+EXT3_FS_SECURITY y
+EXT4_FS_POSIX_ACL y
+EXT4_ENCRYPTION? y
+EXT4_FS_SECURITY y
+REISERFS_FS_XATTR? y
+REISERFS_FS_POSIX_ACL? y
+REISERFS_FS_SECURITY? y
+JFS_POSIX_ACL? y
+JFS_SECURITY? y
+XFS_QUOTA? y
+XFS_POSIX_ACL? y
+XFS_RT? y # XFS Realtime subvolume support
+OCFS2_DEBUG_MASKLOG? n
+BTRFS_FS_POSIX_ACL y
+UBIFS_FS_ADVANCED_COMPR? y
+F2FS_FS m
+F2FS_FS_SECURITY? y
+F2FS_FS_ENCRYPTION? y
+UDF_FS m
+
+NFSD_V2_ACL y
+NFSD_V3 y
+NFSD_V3_ACL y
+NFSD_V4 y
+NFSD_V4_SECURITY_LABEL y
+
+NFS_FSCACHE y
+NFS_SWAP y
+NFS_V3_ACL y
+NFS_V4_1 y  # NFSv4.1 client support
+NFS_V4_2 y
+NFS_V4_SECURITY_LABEL y
+
+CIFS_XATTR y
+CIFS_POSIX y
+CIFS_FSCACHE y
+CIFS_STATS y
+CIFS_WEAK_PW_HASH y
+CIFS_UPCALL y
+CIFS_ACL y
+CIFS_DFS_UPCALL y
+
+CEPH_FSCACHE y
+
+CEPH_FS_POSIX_ACL y
+
+SQUASHFS_FILE_DIRECT y
+SQUASHFS_DECOMP_MULTI_PERCPU y
+
+SQUASHFS_XATTR y
+SQUASHFS_ZLIB y
+SQUASHFS_LZO y
+SQUASHFS_XZ y
+SQUASHFS_LZ4 y
+
+
+# Native Language Support modules, needed by some filesystems
+NLS y
+NLS_DEFAULT utf8
+NLS_UTF8 m
+NLS_CODEPAGE_437 m # VFAT default for the codepage= mount option
+NLS_ISO8859_1 m    # VFAT default for the iocharset= mount option
+
+# Runtime security tests
+
+
+# Security related features.
+RANDOMIZE_BASE? y
+STRICT_DEVMEM y # Filter access to /dev/mem
+SECURITY_SELINUX_BOOTPARAM_VALUE 0 # Disable SELinux by default
+SECURITY_YAMA? y # Prevent processes from ptracing non-children processes
+DEVKMEM n # Disable /dev/kmem
+CC_STACKPROTECTOR_REGULAR? y
+
+USER_NS y # Support for user namespaces
+
+
+# AppArmor support
+SECURITY_APPARMOR y
+DEFAULT_SECURITY_APPARMOR y
+
+# Microcode loading support
+MICROCODE y
+MICROCODE_INTEL y
+MICROCODE_AMD y
+
+
+# Misc. options.
+8139TOO_8129 y
+8139TOO_PIO n # PIO is slower
+AIC79XX_DEBUG_ENABLE n
+AIC7XXX_DEBUG_ENABLE n
+AIC94XX_DEBUG n
+
+
+BLK_DEV_INITRD y
+BLK_DEV_INTEGRITY y
+BSD_PROCESS_ACCT_V3 y
+BT_HCIUART_BCSP? y
+BT_HCIUART_H4? y # UART (H4) protocol support
+BT_HCIUART_LL? y
+BT_RFCOMM_TTY? y # RFCOMM TTY support
+CLEANCACHE? y
+CRASH_DUMP? n
+DVB_DYNAMIC_MINORS? y # we use udev
+EFI_STUB y # EFI bootloader in the bzImage itself
+CGROUPS y # used by systemd
+FHANDLE y # used by systemd
+SECCOMP y # used by systemd >= 231
+SECCOMP_FILTER y # ditto
+POSIX_MQUEUE y
+FRONTSWAP y
+FUSION y # Fusion MPT device support
+IDE n # deprecated IDE support
+IDLE_PAGE_TRACKING y
+
+IRDA_ULTRA y # Ultra (connectionless) protocol
+JOYSTICK_IFORCE_232? y # I-Force Serial joysticks and wheels
+JOYSTICK_IFORCE_USB? y # I-Force USB joysticks and wheels
+JOYSTICK_XPAD_FF? y # X-Box gamepad rumble support
+JOYSTICK_XPAD_LEDS? y # LED Support for Xbox360 controller 'BigX' LED
+KEXEC_FILE? y
+KEXEC_JUMP? y
+LDM_PARTITION y # Windows Logical Disk Manager (Dynamic Disk) support
+LOGIRUMBLEPAD2_FF y # Logitech Rumblepad 2 force feedback
+LOGO n # not needed
+MEDIA_ATTACH y
+MEGARAID_NEWGEN y
+
+
+MOUSE_PS2_ELANTECH y # Elantech PS/2 protocol extension
+MTRR_SANITIZER y
+NET_FC y # Fibre Channel driver support
+PINCTRL_BAYTRAIL y # GPIO on Intel Bay Trail, for some Chromebook internal eMMC disks
+
+MMC_BLOCK_MINORS 32 # 8 is default. Modern gpt tables on eMMC may go far beyond 8.
+PPP_MULTILINK y # PPP multilink support
+PPP_FILTER y
+REGULATOR y # Voltage and Current Regulator Support
+RC_DEVICES? y # Enable IR devices
+RT2800USB_RT55XX y
+SCHED_AUTOGROUP y
+SCSI_LOGGING y # SCSI logging facility
+SERIAL_8250 y # 8250/16550 and compatible serial support
+SLIP_COMPRESSED y # CSLIP compressed headers
+SLIP_SMART y
+HWMON y
+THERMAL_HWMON y # Hardware monitoring support
+UEVENT_HELPER n
+
+
+USB_EHCI_ROOT_HUB_TT y # Root Hub Transaction Translators
+USB_EHCI_TT_NEWSCHED y # Improved transaction translator scheduling
+USERFAULTFD y
+
+X86_CHECK_BIOS_CORRUPTION y
+X86_MCE y
+
+HOTPLUG_PCI_ACPI y # PCI hotplug using ACPI
+HOTPLUG_PCI_PCIE y # PCI-Expresscard hotplug support
+
+
+
+# Linux containers.
+NAMESPACES? y #  Required by 'unshare' used by 'nixos-install'
+RT_GROUP_SCHED n
+CGROUP_DEVICE? y
+MEMCG y
+MEMCG_SWAP y
+
+BLK_DEV_THROTTLING y
+CFQ_GROUP_IOSCHED y
+CGROUP_PIDS y
+
+
+# Enable staging drivers.  These are somewhat experimental, but
+# they generally don't hurt.
+STAGING y
+
+# PROC_EVENTS requires that the netlink connector is not built
+# as a module.  This is required by libcgroup's cgrulesengd.
+CONNECTOR y
+PROC_EVENTS y
+
+# Tracing.
+FTRACE y
+KPROBES y
+FUNCTION_TRACER y
+FTRACE_SYSCALLS y
+SCHED_TRACER y
+STACK_TRACER y
+
+UPROBE_EVENTS? y
+
+
+BPF_SYSCALL y
+BPF_EVENTS y
+
+FUNCTION_PROFILER y
+RING_BUFFER_BENCHMARK n
+
+# Devtmpfs support.
+DEVTMPFS y
+
+# Easier debugging of NFS issues.
+SUNRPC_DEBUG y
+
+# Virtualisation.
+PARAVIRT? y
+HYPERVISOR_GUEST y
+PARAVIRT_SPINLOCKS? y
+
+KVM_ASYNC_PF y
+
+
+KVM_GENERIC_DIRTYLOG_READ_PROTECT y
+
+KVM_GUEST y
+KVM_MMIO y
+KVM_VFIO y
+
+
+KSM y
+HIGHMEM64G? y # We need 64 GB (PAE) support for Xen guest support.
+
+
+VIRT_DRIVERS y
+
+# Media support.
+MEDIA_DIGITAL_TV_SUPPORT y
+MEDIA_CAMERA_SUPPORT y
+MEDIA_RC_SUPPORT y
+
+MEDIA_USB_SUPPORT y
+MEDIA_PCI_SUPPORT y
+
+# Our initrd init uses shebang scripts, so can't be modular.
+BINFMT_SCRIPT y
+
+# For systemd-binfmt
+BINFMT_MISC? y
+
+# Enable the 9P cache to speed up NixOS VM tests.
+9P_FSCACHE? y
+9P_FS_POSIX_ACL? y
+
+# Enable transparent support for huge pages.
+TRANSPARENT_HUGEPAGE? y
+TRANSPARENT_HUGEPAGE_ALWAYS? n
+TRANSPARENT_HUGEPAGE_MADVISE? y
+
+# zram support (e.g for in-memory compressed swap).
+ZRAM m
+ZSWAP? y
+ZBUD? y
+
+ZSMALLOC m
+
+
+# Enable PCIe and USB for the brcmfmac driver
+BRCMFMAC_USB? y
+BRCMFMAC_PCIE? y
+
+# Support x2APIC (which requires IRQ remapping).
+
+
+# Disable the firmware helper fallback, udev doesn't implement it any more
+FW_LOADER_USER_HELPER_FALLBACK? n
+
+# Disable various self-test modules that have no use in a production system
+
+
+ASYNC_RAID6_TEST? n
+ATOMIC64_SELFTEST? n
+BACKTRACE_SELF_TEST? n
+CRC32_SELFTEST? n
+CRYPTO_TEST? n
+GLOB_SELFTEST? n
+INTERVAL_TREE_TEST? n
+LNET_SELFTEST? n
+LOCK_TORTURE_TEST? n
+MTD_TESTS? n
+NOTIFIER_ERROR_INJECTION? n
+PERCPU_TEST? n
+RBTREE_TEST? n
+RCU_TORTURE_TEST? n
+TEST_BPF? n
+TEST_FIRMWARE? n
+TEST_HEXDUMP? n
+TEST_KSTRTOX? n
+TEST_LIST_SORT? n
+TEST_LKM? n
+TEST_PRINTF? n
+TEST_RHASHTABLE? n
+TEST_STATIC_KEYS? n
+TEST_STRING_HELPERS? n
+TEST_UDELAY? n
+TEST_USER_COPY? n
+XZ_DEC_TEST? n
+
+TEST_KMOD n
+
+
+
+
+DRM_DEBUG_MM_SELFTEST? n
+TEST_PARMAN? n
+TEST_SORT? n
+WW_MUTEX_SELFTEST? n
+
+
+# Fix broken sunxi-sid nvmem driver.
+TI_CPTS y
+
+# Hangs ODROID-XU4
+ARM_BIG_LITTLE_CPUIDLE n
+
+CROS_EC_CHARDEV y
+PHY_ROCKCHIP_TYPEC y
+PHY_ROCKCHIP_PCIE y
+BT_HCIUART_BCM y
+EXT4_USE_FOR_EXT2 y
+PHY_ROCKCHIP_DP y
+SQUASHFS_DECOMP_SINGLE y
+MAY_USE_DEVLINK y
+MFD_CROS_EC y
+MFD_CROS_EC_I2C y
+DRM_ROCKCHIP y
+DRM_DW_HDMI y
+COMMON_CLK_RK808 y
+STANDALONE y
+NLS_ISO8859_1 y
+IP_PNP y
+ZSMALLOC_STAT y
+NLS_CODEPAGE_437 y
+ZSMALLOC y
+IP_PNP_RARP y
+PWM_CROS_EC y
+PHY_ROCKCHIP_INNO_USB2 y
+ZRAM y
+CC_STACKPROTECTOR_NONE y
+SQUASHFS_FILE_CACHE y
+CFG80211 y
+IP_PNP_DHCP y
+ROOT_NFS y
+SPI_ROCKCHIP y
+UEVENT_HELPER y
+I2C_CROS_EC_TUNNEL y
+IP_PNP_BOOTP y
+MFD_CROS_EC_SPI y
+DRM_ANALOGIX_DP y
+DRM_PANEL_LVDS y
+KEYBOARD_CROS_EC y
+PHY_ROCKCHIP_EMMC y
+CPU_FREQ_DEFAULT_GOV_ONDEMAND y
+RTC_DRV_RK808 y
+DRM_MALI_DISPLAY y
+KERNEL_GZIP y
+DRM_VGEM y
+NLS_UTF8 y
+PWM_ROCKCHIP y
+
+
+
+
+
+
